@@ -3,6 +3,7 @@ import ErrorPage from "./pages/Error";
 import Login from "./pages/Login";
 import UserSelection from "./pages/UserSelection";
 import PatientProfileCreation from "./pages/patientProfileCreation";
+import DoctorProfileCreation from "./pages/doctorProfileCreation";
 function App() {
   const router = createBrowserRouter([
     {
@@ -18,6 +19,11 @@ function App() {
     {
       path: "/register/patient",
       element: <PatientProfileCreation />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/register/doctor",
+      element: <DoctorProfileCreation />,
       errorElement: <ErrorPage />,
     },
     {

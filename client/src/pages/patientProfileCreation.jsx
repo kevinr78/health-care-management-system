@@ -61,15 +61,11 @@ export default function PatientProfileCreation() {
               id={"DOB"}
               required={true}
             />
-            <InputWithLabel
-              label={"Age"}
-              type={"number"}
-              name={"age"}
-              id={"age  "}
-              required={true}
-            />
 
-            <select className="select select-bordered w-full relative top-6">
+            <select
+              className="select select-bordered w-full relative top-6"
+              name="gender"
+            >
               <option disabled selected>
                 Gender
               </option>
@@ -157,14 +153,22 @@ export default function PatientProfileCreation() {
               </div>
             </div>
             <div className="flex justify-evenly mb-4">
-              <InputWithLabel
-                label={"Blood Group"}
-                type={"text"}
-                placeholder={"Blood Group"}
-                required={true}
-                name={"bloodGroup"}
-                id={"bloodGroup"}
-              />
+              <select
+                className="select select-bordered w-full relative top-6"
+                name="blood-group"
+              >
+                <option disabled selected>
+                  Blood Group
+                </option>
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>O+</option>
+                <option>O-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+              </select>
               <InputWithLabel
                 label={"Height"}
                 type={"number"}

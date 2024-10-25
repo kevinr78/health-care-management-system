@@ -1,11 +1,20 @@
 import React from "react";
 import InputWithLabel from "../components/common/Input";
 
-export default function PatientProfileCreation() {
+export default function DoctorProfileCreation() {
+  function handleSubmit(e) {
+    e.preventDefault();
+    let form = document.getElementById("doctor-profile-form");
+    let formData = new FormData(form);
+    console.log(Object.fromEntries(formData));
+  }
+
   return (
-    <main className="w-full">
-      <h1> Patient Profile Creation </h1>
-      <form method="POST">
+    <main className="w-full p-4">
+      <h1 className="font-bold text-2xl underline mb-2">
+        Doctor Profile Creation{" "}
+      </h1>
+      <form method="POST" id="doctor-profile-form">
         <div className="personal_information w-full">
           <header>Personal Information</header>
           <div className="flex ">
@@ -26,46 +35,42 @@ export default function PatientProfileCreation() {
               name={"lastName"}
             />
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center mt-4">
             <InputWithLabel
-              label={"Date of Birth"}
-              type={"date"}
-              name={"DOB"}
-              id={"DOB"}
+              label={"Email"}
+              type={"email"}
+              placeholder={"Email"}
               required={true}
+              id={"email"}
+              name={"email"}
             />
-            <div className="">
-              <select className="select select-bordered w-full max-w-xs">
-                <option disabled selected>
-                  Gender
-                </option>
-                <option>Male</option>
-                <option>Female</option>
-              </select>
-            </div>
+            <InputWithLabel
+              label={"Password"}
+              type={"password"}
+              placeholder={"passowrd"}
+              required={true}
+              id={"password"}
+              name={"password"}
+            />
           </div>
         </div>
         <div className="professional_information">
           <header>Professional Information</header>
-          <div className="flex">
-            <InputWithLabel
-              label={"Role"}
-              type={"text"}
-              placeholder={"Role"}
-              required={true}
-              name={"role"}
-              id={"role"}
-            />
-            <InputWithLabel
-              label={"Specialization"}
-              type={"text"}
-              placeholder={"Specialization"}
-              required={true}
-              name={"specialization"}
-              id={"specialization"}
-            />
+          <div className="flex mb-4">
+            <select
+              className="select select-bordered w-full relative top-6"
+              name="role"
+            >
+              <option disabled selected>
+                Role
+              </option>
+              <option>General Physician</option>
+              <option>Surgeon</option>
+              <option>Psychiatrists</option>
+              <option>Health care administrators</option>
+            </select>
           </div>
-          <div className="flex">
+          <div className="flex mt-4">
             <InputWithLabel
               label={"License Number"}
               type={"text"}
@@ -74,16 +79,27 @@ export default function PatientProfileCreation() {
               name={"licenseNum"}
               id={"licenseNum"}
             />
-            <InputWithLabel
-              label={"Department"}
-              type={"text"}
-              placeholder={"Department"}
-              required={true}
-              name={"department"}
-              id={"department"}
-            />
+            <select
+              className="select select-bordered w-full relative top-6"
+              name="department"
+            >
+              <option disabled selected>
+                Department
+              </option>
+              <option>Pediatrics</option>
+              <option>Family Medicine</option>
+              <option>Dermatology</option>
+              <option>UroLogy</option>
+              <option>Cardiology</option>
+              <option>Ophthalmology</option>
+              <option>AB+</option>
+              <option>AB-</option>
+            </select>
           </div>
         </div>
+        <button onClick={handleSubmit} className="btn btn-primary mt-4">
+          Submit Information
+        </button>
       </form>
     </main>
   );

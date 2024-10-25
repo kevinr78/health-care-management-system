@@ -3,9 +3,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import InputWithLabel from "../components/common/Input";
 
-const userType = new URLSearchParams(window.location.search).get("type");
 export default function Login() {
   const navigate = useNavigate();
+
+  const userType = new URLSearchParams(window.location.search).get("type");
   console.log(userType);
 
   function handleSubmit(e) {
