@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import InputWithLabel from "../components/common/Input";
+import API_REQUEST from "../utils/API";
+import { toast } from "react-toastify";
 
 export default function DoctorProfileCreation() {
-  function handleSubmit(e) {
+  const navigate = useNavigate();
+  const [isProcessing, setIsProcessing] = useState(false);
+  async function handleSubmit(e) {
     e.preventDefault();
+    setIsProcessing(true);
     let form = document.getElementById("doctor-profile-form");
     let formData = new FormData(form);
-    console.log(Object.fromEntries(formData));
+    const request = new API_REQUEST(
+      "POST",
+      "/register/doctor",
+      Object.fromEntries(formData)
+    );
+    const response = await request.send();
+
+    if (!response.ok) {
+      setIsProcessing(false);
+      toast.error(response.message);
+      return;
+    }
+    navigate("/user/home");
   }
 
   return (
@@ -97,9 +116,14 @@ export default function DoctorProfileCreation() {
             </select>
           </div>
         </div>
-        <button onClick={handleSubmit} className="btn btn-primary mt-4">
-          Submit Information
-        </button>
+        <div className="flex items-center">
+          <button onClick={handleSubmit} className="btn btn-primary mt-4 mr-4">
+            Submit Information
+          </button>
+          {isProcessing && (
+            <span className="loading loading-spinner loading-lg text-accent"></span>
+          )}
+        </div>
       </form>
     </main>
   );

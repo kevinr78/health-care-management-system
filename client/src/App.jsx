@@ -4,6 +4,9 @@ import Login from "./pages/Login";
 import UserSelection from "./pages/UserSelection";
 import PatientProfileCreation from "./pages/patientProfileCreation";
 import DoctorProfileCreation from "./pages/doctorProfileCreation";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -36,6 +39,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <ToastContainer />
     </>
   );
 }

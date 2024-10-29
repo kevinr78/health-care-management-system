@@ -1,12 +1,30 @@
-import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import InputWithLabel from "../components/common/Input";
+import API_REQUEST from "../utils/API";
+import { toast } from "react-toastify";
 
 export default function PatientProfileCreation() {
-  function handleSubmit(e) {
+  const navigate = useNavigate();
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  async function handleSubmit(e) {
     e.preventDefault();
     let form = document.getElementById("patient-profile-form");
     let formData = new FormData(form);
-    console.log(Object.fromEntries(formData));
+    const request = new API_REQUEST(
+      "POST",
+      "/register/patient",
+      Object.fromEntries(formData)
+    );
+    const response = await request.send();
+    if (!response.ok) {
+      setIsProcessing(false);
+      toast.error(response.message);
+      return;
+    }
+    navigate("/user/home");
   }
 
   return (
@@ -47,7 +65,7 @@ export default function PatientProfileCreation() {
             <InputWithLabel
               label={"Password"}
               type={"password"}
-              placeholder={"passowrd"}
+              placeholder={"password"}
               required={true}
               id={"password"}
               name={"password"}
@@ -145,7 +163,7 @@ export default function PatientProfileCreation() {
                 <InputWithLabel
                   label={" Allergies"}
                   type={"text"}
-                  placeholder={"Phone Number"}
+                  placeholder={"Allergies"}
                   required={true}
                   name={"allergies"}
                   id={"allergies"}
@@ -155,7 +173,7 @@ export default function PatientProfileCreation() {
             <div className="flex justify-evenly mb-4">
               <select
                 className="select select-bordered w-full relative top-6"
-                name="blood-group"
+                name="blood_group"
               >
                 <option disabled selected>
                   Blood Group
@@ -188,10 +206,14 @@ export default function PatientProfileCreation() {
             </div>
           </div>
         </div>
-
-        <button onClick={handleSubmit} className="btn btn-primary">
-          Submit Information
-        </button>
+        <div className="flex items-center">
+          <button onClick={handleSubmit} className="btn btn-primary mt-4 mr-4">
+            Submit Information
+          </button>
+          {isProcessing && (
+            <span className="loading loading-spinner loading-lg text-accent"></span>
+          )}
+        </div>
       </form>
     </main>
   );
