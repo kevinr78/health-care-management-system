@@ -1,31 +1,22 @@
-import OracleDB from "oracledb";
+import mongoose from "mongoose";
 import appConfig from "./env.js";
-
+import createAndReturnError from "./error.js";
 let connection;
-const dbConfig = {
-  user: appConfig.DB_USER,
-  password: appConfig.DB_PASSWORD,
-  connectString: appConfig.DB_CONNECT_STRING, // e.g., "localhost/XE"
-};
 
 async function initialize() {
-  try {
-    await OracleDB.createPool({
-      user: appConfig.DB_USER,
-      password: appConfig.DB_PASSWORD,
-      connectString: appConfig.DB_CONNECT_STRING,
+  // Create a new connection to the database
+  mongoose
+    .connect(appConfig.DB_CONNECT_STRING)
+    .then(() => {
+      console.log("Connected to MongoDB");
+    })
+    .catch((err) => {
+      console.log("Error connecting to MongoDB");
     });
-
-    console.log("Connected to oracle Database");
-  } catch (err) {
-    throw err;
-  }
 }
 
 async function getConnection() {
   try {
-    // get connection from the pool and use it
-    connection = await OracleDB.getConnection();
     return connection;
   } catch (err) {
     throw err;

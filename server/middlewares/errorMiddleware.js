@@ -9,12 +9,13 @@ const logger = winston.createLogger({
 // errorMiddleware.js
 const errorMiddleware = (err, req, res, next) => {
   logger.error(
-    `${err.statusCode || 500} - ${err.message} - ${req.originalUrl} - ${
-      req.method
-    } - ${req.ip}`
+    `Error Name - ${err.name} - ${err.statusCode || 500} - ${err.message} - ${
+      req.originalUrl
+    } - ${req.method} - ${req.ip}`
   );
   res.status(err.statusCode || 500).json({
     status: err.status || false,
+    name: err.name,
     message: err.message || "Something went wrong",
   });
 };
