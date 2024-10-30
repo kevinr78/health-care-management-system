@@ -1,17 +1,30 @@
-import React from "react";
-import { useState } from "react";
 import { useNavigate } from "react-router";
-import InputWithLabel from "../components/common/Input";
+import InputWithLabel from "../../components/common/Input";
+import API_REQUEST from "../../utils/API";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const navigate = useNavigate();
 
   const userType = new URLSearchParams(window.location.search).get("type");
-  console.log(userType);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    let formsData = new FormData(document.getElementById("login_form"));
+    let formData = new FormData(document.getElementById("login_form"));
+    formData.append("type", userType);
+    const request = new API_REQUEST(
+      "POST",
+      `/login/${userType}`,
+      Object.fromEntries(formData)
+    );
+    const response = await request.send();
+
+    if (!response.ok) {
+      toast.error(response.message);
+      return;
+    }
+    localStorage.setItem(`token`, response.token);
+    navigate(`/${userType}/home?id=${response.data._id}&type=${userType}`);
   }
 
   return (
@@ -33,12 +46,14 @@ export default function Login() {
                 label={"Email"}
                 type={"email"}
                 id={"email"}
+                name={"email"}
                 placeholder={"Email"}
                 required={true}
               />
               <InputWithLabel
                 label={"Password"}
                 type={"password"}
+                name={"password"}
                 id={"password"}
                 placeholder={"password"}
                 required={true}

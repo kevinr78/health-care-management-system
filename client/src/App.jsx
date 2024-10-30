@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./pages/Error";
-import Login from "./pages/Login";
-import UserSelection from "./pages/UserSelection";
-import PatientProfileCreation from "./pages/patientProfileCreation";
-import DoctorProfileCreation from "./pages/doctorProfileCreation";
+import Login from "./pages/Registration/Login";
+import UserSelection from "./pages/Registration/UserSelection";
+import PatientProfileCreation from "./pages/Registration/patientProfileCreation";
+import DoctorProfileCreation from "./pages/Registration/DoctorProfileCreation";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -30,8 +30,25 @@ function App() {
       errorElement: <ErrorPage />,
     },
     {
-      path: "/user/home",
+      path: "/doctor",
       element: <p>User Home</p>,
+      children: [
+        {
+          path: "/doctor/home",
+          element: <p>Doctor Home</p>,
+        },
+      ],
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/patient",
+      element: <p>Patient Home</p>,
+      children: [
+        {
+          path: "/patient/home",
+          element: <p>Patient Home</p>,
+        },
+      ],
       errorElement: <ErrorPage />,
     },
   ]);

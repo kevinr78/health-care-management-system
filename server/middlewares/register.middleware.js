@@ -29,7 +29,7 @@ const registerDoctor = async function (req, res, next) {
     );
   }
 
-  const doesDocExist = doctorModel.findOne({ email: email });
+  const doesDocExist = await doctorModel.findOne({ email: email });
   if (doesDocExist) {
     throw createAndReturnError(
       "Doctor Exist Check",
@@ -57,6 +57,7 @@ const registerDoctor = async function (req, res, next) {
     return res.status(200).json({
       name: "Doctor Profile Creation",
       message: "Doctor Profile created successfully",
+      data: doctor,
       token: token,
       ok: true,
     });
@@ -106,7 +107,7 @@ const registerPatient = async function (req, res, next) {
     weight
   );
 
-  const doesPatientExist = patientModel.findOne({ email: email });
+  const doesPatientExist = await patientModel.findOne({ email: email });
   if (doesPatientExist) {
     throw createAndReturnError(
       "Patient exist check",
@@ -152,6 +153,7 @@ const registerPatient = async function (req, res, next) {
       name: "Patient Profile Creation",
       message: "Patient Profile created successfully",
       token: token,
+      data: patient,
       ok: true,
     });
   } catch (error) {
@@ -159,7 +161,7 @@ const registerPatient = async function (req, res, next) {
   }
 };
 
-const checkIfValueIsEmpty = function (...args) {
+export const checkIfValueIsEmpty = function (...args) {
   let flag = false;
   for (let arg in args) {
     if (arg === null || arg === undefined || arg === "") {

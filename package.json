@@ -1,0 +1,17 @@
+{
+  "name": "healthcare-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-client": "cd client && npm run dev",
+    "start-server": " cd server &&  nodemon index.js --inspect",
+    "start-dev": " npm run start-client"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react-router": "^6.27.0"
+  }
+}

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import InputWithLabel from "../components/common/Input";
-import API_REQUEST from "../utils/API";
+import InputWithLabel from "../../components/common/Input";
+import API_REQUEST from "../../utils/API";
 import { toast } from "react-toastify";
 
 export default function DoctorProfileCreation() {
@@ -25,7 +25,8 @@ export default function DoctorProfileCreation() {
       toast.error(response.message);
       return;
     }
-    navigate("/user/home");
+    localStorage.setItem(`token`, response.token);
+    navigate(`/doctor/home?id=${response.data._id}&type=doctor`);
   }
 
   return (

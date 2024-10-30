@@ -1,7 +1,7 @@
 import React from "react";
-import doctor from "../assets/doctor.svg";
-import patient from "../assets/patient.svg";
-import CardWithImgOverlay from "../components/common/CardWithImgOverlay";
+import doctor from "../../assets/doctor.svg";
+import patient from "../../assets/patient.svg";
+import CardWithImgOverlay from "../../components/common/CardWithImgOverlay";
 import { useNavigate } from "react-router";
 
 export default function UserSelection() {
