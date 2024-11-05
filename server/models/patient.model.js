@@ -52,6 +52,11 @@ const PatientSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  treatedBy: {
+    type: Array,
+    required: true,
+    ref: "Doctor",
+  },
 });
 
 export default mongoose.model("Patient", PatientSchema);

@@ -6,6 +6,7 @@ import errorMiddleware from "./middlewares/errorMiddleware.js";
 import appConfig from "./config/env.js";
 import registerRouter from "./routes/register.route.js";
 import loginRouter from "./routes/login.route.js";
+import doctorRouter from "./routes/doctor/doctor.route.js";
 const app = express();
 
 app.use(express.json());
@@ -18,6 +19,7 @@ initialize();
 // Routes
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
+app.use("/doctor", doctorRouter);
 
 app.use(errorMiddleware);
 
